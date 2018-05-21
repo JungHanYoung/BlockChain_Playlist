@@ -1,0 +1,8 @@
+{
+  "name": "web_block_chain",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:JungHanYoung/BlockChain_Playlist.git",
+  "author": "Hanyoung Jeong <8735132@gmail.com>",
+  "license": "MIT"
+}
