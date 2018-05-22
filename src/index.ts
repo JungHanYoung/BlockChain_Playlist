@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as logger from 'morgan';
 import { createConnection } from 'typeorm';
+import * as session from 'express-session';
 
 // router
 import ApiRouter from './routes';
@@ -14,7 +15,7 @@ createConnection({
 	password: 'jhy5968!',
 	database: 'blockchain',
 	synchronize: true,
-	logging: false,
+	logging: true,
 	entities: [ 'src/models/**/*.ts' ],
 	migrations: [ 'src/migration/**/*.ts' ],
 	subscribers: [ 'src/subscriber/**/*.ts' ]
@@ -24,6 +25,17 @@ createConnection({
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(bodyParser.json());
 	app.use(logger('dev'));
+	app.use(
+		session({
+			secret: 'blockchain',
+			resave: false,
+			saveUninitialized: true,
+			cookie: {
+				httpOnly: true,
+				secure: false
+			}
+		})
+	);
 
 	app.use('/api/v1', ApiRouter);
 
